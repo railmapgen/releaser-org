@@ -1,0 +1,14 @@
+name: 'Releaser'
+description: 'Releaser built artefacts of railmapgen projects to Org'
+inputs:
+  app_name:
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Release to self-hosted runner
+      shell: bash
+      run: |
+        APP_NAME="${{ inputs.app_name }}"
+        ${{ github.action_path }}/release-org.sh "$APP_NAME"
+      working-directory: ${{ github.workspace }}
