@@ -11,6 +11,8 @@ remote_url="git@github.com:railmapgen/${repo_name}.git"
 workspace="/tmp/${repo_name}"
 target_dir="/www/${repo_name}"
 
+echo "Updating ${repo_name}..."
+
 # Clone or pull repository
 if [ ! -d "${workspace}" ]; then
     echo "Cloning new repository..."
@@ -33,6 +35,7 @@ echo "Applying changes..."
 python3 -c "import json;f=open('${workspace}/info.json', 'r+');info=json.load(f);info['instance']='ORG';f.seek(0);json.dump(info,f,indent=2);f.truncate();f.close()"
 
 # Copy new files to www
+echo "Copying files to www..."
 rm -rf "${target_dir}"
 cp -r "${workspace}/" "${target_dir}"
 chown -R www-data:www-data /www

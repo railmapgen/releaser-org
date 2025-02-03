@@ -1,5 +1,5 @@
 name: 'Releaser'
-description: 'Releaser built artefacts of railmapgen projects to Org'
+description: 'Release gh-pages of railmapgen projects to Org'
 inputs:
   app_name:
     required: true
