@@ -1,8 +1,13 @@
 name: 'Releaser'
 description: 'Release gh-pages of railmapgen projects to Org'
+
 inputs:
   app_name:
     required: true
+  target_dir:
+    required: false
+    type: string
+
 runs:
   using: 'composite'
   steps:
@@ -10,5 +15,11 @@ runs:
       shell: bash
       run: |
         APP_NAME="${{ inputs.app_name }}"
-        ${{ github.action_path }}/release-org.sh "$APP_NAME"
+        TARGET_DIR="${{ inputs.target_dir }}"
+
+        if [ -n "$TARGET_DIR" ]; then
+          ${{ github.action_path }}/release-org.sh "$APP_NAME" "$TARGET_DIR"
+        else
+          ${{ github.action_path }}/release-org.sh "$APP_NAME"
+        fi
       working-directory: ${{ github.workspace }}
